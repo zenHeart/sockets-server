@@ -1,0 +1,34 @@
+{
+  "name": "socket-server",
+  "version": "0.0.0",
+  "description": "socker server",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "test": "test"
+  },
+  "var": {
+    "ignore": "ota,*.log,tests,client,public,coverage"
+  },
+  "scripts": {
+    "test": "export DEBUG='socket:*';export NODE_CONFIG_DIR='./config/test';jest tests "
+  },
+  "keywords": [
+    "socket",
+    "server"
+  ],
+  "author": "zenheart",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.10",
+    "nyc": "^11.7.1",
+    "path-to-regexp": "^2.2.1"
+  },
+  "devDependencies": {
+    "debug": "^3.1.0",
+    "jest": "^22.4.3",
+    "lerna": "^2.11.0",
+    "merge-descriptors": "^1.0.1",
+    "supports-color": "^5.4.0"
+  }
+}
