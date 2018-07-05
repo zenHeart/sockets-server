@@ -1,7 +1,7 @@
 const PORT = 11111;
 
 const debug = require('debug')('socket:demo');
-const SocketServer = require('../npm_dist');
+const SocketServer = require('sockets-server');
 const Socket = require('net').Socket;
 const socket = new Socket({
 

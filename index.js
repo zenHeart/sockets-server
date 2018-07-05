@@ -1,1 +1,1 @@
-module.exports =  requgitire('./src/ClientServer');
+module.exports =  require('./src/ClientServer');
