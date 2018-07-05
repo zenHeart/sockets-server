@@ -1,30 +1,35 @@
 {
-  "name": "socket-server",
-  "version": "0.0.0",
+  "name": "sockets-server",
+  "version": "0.0.1",
   "description": "socker server",
+  "author": "zenheart",
   "main": "index.js",
   "directories": {
-    "example": "examples",
-    "test": "test"
+    "test": "tests"
   },
   "var": {
     "ignore": "ota,*.log,tests,client,public,coverage"
   },
   "scripts": {
-    "test": "export DEBUG='socket:*';export NODE_CONFIG_DIR='./config/test';jest tests "
+    "test": "export DEBUG='socket:*';jest tests",
+    "build": "webpack;cd npm_dist;npm publish",
+    "demo": "export DEBUG='socket:*';node ./examples/demo.js"
   },
   "keywords": [
     "socket",
     "server"
   ],
-  "author": "zenheart",
   "license": "ISC",
   "dependencies": {
+    "hashids": "^1.1.4",
     "lodash": "^4.17.10",
     "nyc": "^11.7.1",
-    "path-to-regexp": "^2.2.1"
+    "path-to-regexp": "^2.2.1",
+    "shortid": "^2.2.8"
   },
   "devDependencies": {
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.2",
     "debug": "^3.1.0",
     "jest": "^22.4.3",
     "lerna": "^2.11.0",

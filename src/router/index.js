@@ -18,7 +18,7 @@ module.exports = class ClientRoute {
     }
 
     /**
-     * 路由处理函数,出来 socket 接收到的数据
+     * 路由处理函数,处理 socket 接收到的数据
      * @param {Client} client
      */
     handle(client) {

@@ -1,7 +1,7 @@
 socket-server
 ===
 
-**通用 socket server 框架**
+**通用 sockets server 框架**
 
 ## 概述
 基于 express 中间件原理实现通用 socket server.
@@ -15,5 +15,6 @@ socket-server
 ## 快速入门
 1. 安装包
 ```bash
-npm install socket-server
+npm install sockets-server
 ```
+
