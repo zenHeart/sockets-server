@@ -48,5 +48,8 @@ sockets-server
 ![](docs/img/run-demo.gif)
 
 
+## 原理说明
+![](docs/img/run_flow.svg)
+
 
 

@@ -1,7 +1,7 @@
 {
   "name": "sockets-server",
-  "version": "0.0.1",
-  "description": "socker server",
+  "version": "0.0.2",
+  "description": "socket server",
   "author": "zenheart",
   "main": "index.js",
   "directories": {
@@ -11,7 +11,8 @@
     "ignore": "ota,*.log,tests,client,public,coverage"
   },
   "scripts": {
-    "test": "export DEBUG='socket:*';jest tests",
+    "docs:svg":"scripts/update_svg.sh",
+    "test": "export DEBUG='socket:*';jest",
     "build": "webpack;cd npm_dist;npm publish",
     "demo": "export DEBUG='socket:*';node ./examples/demo.js"
   },
@@ -31,7 +32,6 @@
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
     "debug": "^3.1.0",
-    "jest": "^22.4.3",
     "lerna": "^2.11.0",
     "merge-descriptors": "^1.0.1",
     "supports-color": "^5.4.0"

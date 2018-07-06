@@ -1,0 +1,63 @@
+@startuml
+
+!define c  |client|
+!define s  |server|
+!define _connect  [[https://github.com/zenHeart/sockets-server/blob/develop/src/ClientServer.js#L267 _connect]]
+!define _ondata  [[https://github.com/zenHeart/sockets-server/blob/develop/src/Client.js#L104 _ondata]]
+!define _onerror  [[https://github.com/zenHeart/sockets-server/blob/develop/src/Client.js#L111 _onerror]]
+!define _ontimeout  [[https://github.com/zenHeart/sockets-server/blob/develop/src/Client.js#L116 _ontimeout]]
+!define _onclose [[https://github.com/zenHeart/sockets-server/blob/develop/src/Client.js#L122 _onclose]]
+!define _onend [[https://github.com/zenHeart/sockets-server/blob/develop/src/Client.js#L128 _onend]]
+!define parseData [[https://github.com/zenHeart/sockets-server/blob/develop/src/middlerware/parseData.js parseData]]
+!define parsePath [[https://github.com/zenHeart/sockets-server/blob/develop/src/middlerware/parsePath.js parsePath]]
+!define write [[https://github.com/zenHeart/sockets-server/blob/develop/src/ClientServer.js#L140 write]]
+
+s
+partition 1**初始化阶段** {
+start
+:实例化一个 sockets-server;
+:监听配置端口等待客户端连接;
+end
+}
+
+partition  2**客户端连接** {
+c
+start
+:实例化一个 socket;
+:发起连接;
+s
+:监听到连接;
+:触发内部 _connect 方法处理 connect 事件;
+:_connect 基于 socket 实例化 client 对象\n\
+并在 socket 事件上绑定回调,核心事件包括\n\
+*data -> _ondata\n\
+*error -> _onerror\n\
+*timeout -> _ontimeout\n\
+*close -> _onclose\n\
+*end -> _onend;
+end;
+}
+
+partition 3**数据交互** {
+c
+start
+:已连接的客户端发送数据;
+s
+:触发 _ondata 回调;
+:执行 parseData 中间件\n\
+=====\n\
+默认采用 json 解析\n\
+利用 parserData 选项改变解析规则;
+:执行 parsePath 中间件\n\
+=====\n\
+默认返回 json 中的 apiId 作为 path\n\
+<color:red>若无法解析,设定 path 为 /</color>\n\
+利用 parserPath 改变解析规则;
+:当 path 匹配时执行一系列中间件;
+floating note left
+由于是长连接,中间件包含 client 对象
+调用 client 的 write 方法向客户端写入数据.
+end note
+end
+}
+@enduml

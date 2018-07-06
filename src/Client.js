@@ -13,7 +13,6 @@ module.exports = class Client extends  EventEmitter {
      * @param {Object} server 参见 {@link ClientServer}
      * @param {Object} socket 参见 {@link https://nodejs.org/dist/latest-v10.x/docs/api/net.html#net_event_connection|connnection}
      */
-
     constructor(server,socket) {
         //调用父类方法
         super();
