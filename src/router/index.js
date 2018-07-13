@@ -1,4 +1,5 @@
 const Layer = require('./layer');
+// const Route = require('./route');
 const debug = require('debug')('socket:router');
 const slice = Array.prototype.slice;
 
@@ -15,6 +16,8 @@ module.exports = class ClientRoute {
         //用在递归路由的定义
         this.options = options;
         this.stack = [];
+        //实例化一个 route
+        // this.Route = Route;
     }
 
     /**
@@ -94,6 +97,19 @@ module.exports = class ClientRoute {
             }
         }
     };
+/*
+    /!**
+     * 定义接收包的处理回调.
+     * @param {String} path 接收包对应的路径
+     *
+     *!/
+    receive(path) {
+        //实例化一个 route 路由
+        let route = this.Route(path);
+        //强制把输入参数传递给 route
+        route.receive.apply(route,slice,call(arguments,1));
+        return this;
+    }*/
 
 
     /**
@@ -172,6 +188,8 @@ function lastDone(err,client){
     if(err) {
         debug('device error:',err.message);
     } else {
+        //最后一层的路由通知事件
+        client.server.emit('resolveFinish',client);
         debug('layer run success');
     }
 }

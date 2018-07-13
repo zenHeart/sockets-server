@@ -4,14 +4,15 @@
   "description": "socket server",
   "author": "zenheart",
   "main": "index.js",
-  "directories": {
-    "test": "tests"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zenHeart/sockets-server/tree/develop"
   },
   "var": {
     "ignore": "ota,*.log,tests,client,public,coverage"
   },
   "scripts": {
-    "docs:svg":"scripts/update_svg.sh",
+    "docs:svg": "scripts/update_svg.sh",
     "test": "export DEBUG='socket:*';jest",
     "build": "webpack;cd npm_dist;npm publish",
     "demo": "export DEBUG='socket:*';node ./examples/demo.js"
@@ -29,6 +30,7 @@
     "shortid": "^2.2.8"
   },
   "devDependencies": {
+    "array-flatten": "^2.1.1",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
     "debug": "^3.1.0",

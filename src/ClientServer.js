@@ -32,12 +32,18 @@ module.exports =  class ClientServer extends Server {
      * @param {Object} config 配置项
      * @param {String} config.CLIENT 客户端配置项.
      * @param {Number} config.CLIENT.WAIT_OVERTIME 客户端响应的超时时间设定.
+     * @param {Function} config.parserData 定义客户端数据的解析规则
+     * @param {Function} config.parserPath 定义客户端路径解析规则
      * @param {String} config.MAX_CONNECTIONS 服务器允许的最大连接数量.
      * @param {Object} options 参见 {@link https://nodejs.org/dist/latest-v8.x/docs/api/net.html#net_net_createserver_options_connectionlistener|options}.
      * @param {Object} connectionListener {@link https://nodejs.org/dist/latest-v8.x/docs/api/net.html#net_net_createserver_options_connectionlistener|connectionLisner}.
      * @return {clientServer} 返回一个 socketServer
      */
-    constructor(config,options={},connectionListener=null) {
+    constructor(config={
+        parsePath:null,
+        parserData:null
+    },options={
+    },connectionListener=null) {
         super(options,connectionListener);
 
         //所有连接
@@ -87,9 +93,13 @@ module.exports =  class ClientServer extends Server {
         if (!this._router) {
             this._router = new ClientRouter();
             //此处加载内部中间件
-
-            this._router.use(parserData());
-            this._router.use(parsePath());
+            //若自定义了内容解析器,则加载该解析器
+            this._router.use(parserData({
+               parser:this.config.parserData
+            }));
+            this._router.use(parsePath({
+                parser:this.config.parserPath
+            }));
         }
     };
 
@@ -242,13 +252,19 @@ module.exports =  class ClientServer extends Server {
 
     /**
      * 在 socketServer 上定义服务组件.
-     * 强制在命令服务前加上 services_ 的命令前缀,用来标识服务
-     * @param {String} name 暴露的服务名.
      * @param {Object} service 服务对象.
+     * @param {String} name 服务名称可选字段.
      */
-    service(name, service) {
-        this['services_'+name] = service;
-        return this;
+    service(service,name = service.constructor.name) {
+        if(service.constructor && service.constructor.name !== 'Object') {
+            if(this.services[name]) {
+                throw new Error('can\'t define duplicate service,yon can set a different name')
+            }
+            this.services[name] = service;
+            return this;
+        } else {
+            throw new TypeError('Service must be a Instantiated classes and constructor can\'t be an Object!');
+        }
     }
 
     /**
