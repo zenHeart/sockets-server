@@ -32,7 +32,7 @@
   "devDependencies": {
     "array-flatten": "^2.1.1",
     "clean-webpack-plugin": "^0.1.19",
-    "copy-webpack-plugin": "^4.5.2",
+    "copy-webpack-plugin": "^11.0.0",
     "debug": "^3.1.0",
     "lerna": "^2.11.0",
     "merge-descriptors": "^1.0.1",
