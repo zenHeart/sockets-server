@@ -1,5 +1,4 @@
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
@@ -8,16 +7,16 @@ module.exports = {
       app:'./index.js'
     } ,
     plugins: [
-        new CleanWebpackPlugin(['npm_dist']),
-        new CopyWebpackPlugin([
-            './package.json',
-            './README.md'
-        ])
+        new CopyWebpackPlugin({ patterns: [
+            { from: './package.json' },
+            { from: './README.md' }
+        ] })
 
     ],
     output: {
         filename: 'index.js',
         path:path.join(__dirname,'npm_dist'),
+        clean: true,
         libraryTarget: 'umd'
     },
 };

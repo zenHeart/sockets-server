@@ -8,15 +8,14 @@ const Client = require('../src/Client');
 describe('Client', function () {
     test('create msgId', () => {
         let msgId = [];
-        for(let i=0;i++;i<10) {
+        for(let i=0;i<10;i++) {
             msgId.push(Client.generateMsgId());
         }
 
-        msgId.forEach(function (val,index,arr) {
+        expect(msgId).toHaveLength(10);
+        expect(new Set(msgId).size).toBe(10);
+        msgId.forEach(function (val) {
             expect(val.length).toBe(8);
-            if(indx < arr.length -1) {            expect(val).not.toBe(arr[index+1])
-                expect(val).not.toBe(arr[index+1])
-            }
         })
     });
 });

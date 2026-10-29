@@ -51,5 +51,18 @@ sockets-server
 ## 原理说明
 ![](docs/img/run_flow.svg)
 
+## 开发与验证
+
+使用 Node.js 20 或 22+ 安装锁定的开发依赖并运行测试：
+
+```bash
+npm ci
+npm test
+npm run build
+```
+
+测试包含本机 TCP 连接与自定义解析器。构建只在 `npm_dist/` 生成包，不会发布到 npm。
+发布需要在单独审核构建产物后手动执行。
+
 
 
